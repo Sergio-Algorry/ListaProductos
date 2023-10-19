@@ -1,0 +1,54 @@
+﻿@page "/creaproducto"
+@using LIstaProductos.Shared.DTO;
+<h3>Crear Producto</h3>
+<EditForm Model="prod" OnValidSubmit="Aceptar">
+    <DataAnnotationsValidator />
+    <div class="form-group">
+        <label>Código</label>
+        <div>
+            <InputText class="form-control" @bind-Value="@prod.Codigo" />
+            <ValidationMessage For="@(() => prod.Codigo)" />
+        </div>
+    </div>
+    <br/>
+    <div class="form-group">
+        <label>Nombre</label>
+        <div>
+            <InputText class="form-control" @bind-Value="@prod.Nombre" />
+            <ValidationMessage For="@(() => prod.Nombre)" />
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        <label>Precio</label>
+            <div>
+                <InputNumber class="form-control" @bind-Value="@prod.Precio" />
+            <ValidationMessage For="@(() => prod.Precio)" />
+        </div>
+    </div>
+    <br />
+    <button class="btn btn-primary" type="submit">Aceptar</button>
+    <button class="btn btn-secondary" @onclick=@(()=>Limpiar())>Limpiar</button>
+    <br />
+    <br />
+    <h5>@mensaje</h5>
+</EditForm>
+
+@code {
+    Producto prod = new Producto();
+    string mensaje = "";
+
+    private void Aceptar()
+    {
+        mensaje=prod.Codigo + " - " + prod.Nombre + " $" + prod.Precio.ToString(); 
+    }
+
+    private void Limpiar()
+    {
+        prod.Codigo = "";
+        prod.Nombre = "";
+        prod.Precio = 0;
+        mensaje = " ";
+    }
+
+}
