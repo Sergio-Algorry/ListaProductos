@@ -5,17 +5,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LIstaProductos.Shared.DTO
+namespace ListaProductos.BD.Data.Entity
 {
     public class Producto
     {
-        [Required(ErrorMessage ="El código es obligatorio.")]
-        [MaxLength(3, ErrorMessage ="Solo se aceptan códigos de 3 caracteres")]
-        public string Codigo { get; set; }
+        public int Id { get; set; }
+
         [Required(ErrorMessage = "El código es obligatorio.")]
-        public string Nombre { get; set;}
+        [MaxLength(3, ErrorMessage = "Solo se aceptan códigos de 3 caracteres")]
+        public string Codigo { get; set; }
+
+        [Required(ErrorMessage = "El código es obligatorio.")]
+        public string Nombre { get; set; }
+
         [Required(ErrorMessage = "El Nombre es obligatorio.")]
-        [Range(4,8, ErrorMessage ="fuera de rango")]
-        public decimal Precio { get; set;}
+        [Range(4, 8, ErrorMessage = "fuera de rango")]
+        public decimal Precio { get; set; }
+
     }
 }
