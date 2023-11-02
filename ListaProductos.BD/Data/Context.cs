@@ -12,6 +12,8 @@ namespace ListaProductos.BD.Data
     {
         public DbSet<Producto> Productos { get; set; }
 
+        public DbSet<Persona> Personas { get; set; }
+
         public Context(DbContextOptions options) : base(options)
         {
         }
