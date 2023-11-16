@@ -1,6 +1,8 @@
 using ListaProductos.BD.Data;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,8 +11,15 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 
+//configuracion de entity framework core
 builder.Services.AddDbContext<Context>(opcion => opcion.UseSqlServer("name=connproducto"));
+builder.Services.AddControllersWithViews().AddJsonOptions(x =>
+    x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
+builder.Services.AddSwaggerGen(c =>
+    c.SwaggerDoc("v1", new OpenApiInfo { Title= "ListaProducto", Version = "v1"}));
+
+//CONSTRUCCION DE LA APLICACION
 var app = builder.Build();
 
 
@@ -18,6 +27,9 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseWebAssemblyDebugging();
+    //swagger
+    app.UseSwagger();
+    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ListaProductos v1"));
 }
 else
 {
