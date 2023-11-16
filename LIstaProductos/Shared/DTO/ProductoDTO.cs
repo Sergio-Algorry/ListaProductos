@@ -15,7 +15,6 @@ namespace LIstaProductos.Shared.DTO
         [Required(ErrorMessage = "El código es obligatorio.")]
         public string Nombre { get; set;}
         [Required(ErrorMessage = "El Nombre es obligatorio.")]
-        [Range(4,8, ErrorMessage ="fuera de rango")]
         public decimal Precio { get; set;}
     }
 }

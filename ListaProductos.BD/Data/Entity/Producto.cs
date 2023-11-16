@@ -19,7 +19,6 @@ namespace ListaProductos.BD.Data.Entity
         public string Nombre { get; set; }
 
         [Required(ErrorMessage = "El Nombre es obligatorio.")]
-        [Range(4, 8, ErrorMessage = "fuera de rango")]
         public decimal Precio { get; set; }
 
     }
