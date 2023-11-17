@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LIstaProductos.Client", "LI
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LIstaProductos.Shared", "LIstaProductos\Shared\LIstaProductos.Shared.csproj", "{FB252F9E-46E4-4B51-A2AA-D7DE5743E490}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ListaProductos.BD", "ListaProductos.BD\ListaProductos.BD.csproj", "{1B7EC52E-BE13-4625-96CA-C4A4C42A8387}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ListaProductos.BD", "ListaProductos.BD\ListaProductos.BD.csproj", "{1B7EC52E-BE13-4625-96CA-C4A4C42A8387}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

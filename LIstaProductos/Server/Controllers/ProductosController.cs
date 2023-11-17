@@ -18,13 +18,13 @@ namespace LIstaProductos.Server.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Producto>>> Get()
+        public async Task<ActionResult<List<Producto>>> Get()  //api/productos
         {
             return await context.Productos.ToListAsync();
         }
 
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<Producto>> GetById(int id)
+        public async Task<ActionResult<Producto>> GetById(int id)   //api/productos/2
         {
             bool existe = await context.Productos.AnyAsync(x => x.Id == id);
             if (!existe)
@@ -36,7 +36,7 @@ namespace LIstaProductos.Server.Controllers
         }
 
         [HttpGet("{cod}")]
-        public async Task<ActionResult<Producto>> GetByCod(string cod)
+        public async Task<ActionResult<Producto>> GetByCod(string cod)  //api/productos/ABA
         {
             bool existe = await context.Productos.AnyAsync(x => x.Codigo == cod);
             if (!existe)
