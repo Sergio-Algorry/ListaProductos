@@ -1,5 +1,7 @@
 ﻿@page "/creaproducto"
 @using LIstaProductos.Shared.DTO;
+@inject IHttpServicio http
+@inject NavigationManager navegador
 <h3>Crear Producto</h3>
 <EditForm Model="prod" OnValidSubmit="Aceptar">
     <DataAnnotationsValidator />
@@ -29,6 +31,7 @@
     <br />
     <button class="btn btn-primary" type="submit">Aceptar</button>
     <button class="btn btn-secondary" @onclick=@(()=>Limpiar())>Limpiar</button>
+    <button class="btn btn-secondary" @onclick=@(()=>Salir())>Salir</button>
     <br />
     <br />
     <h5>@mensaje</h5>
@@ -38,9 +41,17 @@
     ProductoDTO prod = new ProductoDTO();
     string mensaje = "";
 
-    private void Aceptar()
+    private async void Aceptar()
     {
-        mensaje=prod.Codigo + " - " + prod.Nombre + " $" + prod.Precio.ToString(); 
+        var httpRespuesta = await http.Post<ProductoDTO>("api/productos", prod);
+        if (httpRespuesta.Error)
+        {
+            mensaje = httpRespuesta.ObtenerError().ToString();
+        }
+        else
+        {
+            navegador.NavigateTo("/productos");
+        }
     }
 
     private void Limpiar()
@@ -49,6 +60,11 @@
         prod.Nombre = "";
         prod.Precio = 0;
         mensaje = " ";
+    }
+
+    private void Salir()
+    {
+        navegador.NavigateTo("/productos");
     }
 
 }

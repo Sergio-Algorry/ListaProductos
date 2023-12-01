@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System.Text;
+using System.Text.Json;
 
 namespace LIstaProductos.Client.Servicios
 {
@@ -30,6 +31,19 @@ namespace LIstaProductos.Client.Servicios
             }
         }
 
+        public async Task<HttpRespuesta<object>> Post<T>(string url, T enviar)
+        {
+            var enviarJson = JsonSerializer.Serialize(enviar);
+            var enviarContent = new StringContent(enviarJson,
+                                                    Encoding.UTF8,
+                                                    "application/json"
+                                                 );
+
+            var respuesta = await http.PostAsync(url, enviarContent);
+
+            return new HttpRespuesta<object>(null, !respuesta.IsSuccessStatusCode, respuesta);
+
+        }
 
         public async Task<T> DesSerializador<T>(HttpResponseMessage response)
         {

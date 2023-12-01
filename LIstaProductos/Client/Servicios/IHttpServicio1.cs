@@ -1,7 +1,7 @@
 ﻿
 namespace LIstaProductos.Client.Servicios
 {
-    public interface IHttpServicio
+    public interface IHttpServicio1
     {
         Task<T> DesSerializador<T>(HttpResponseMessage response);
         Task<HttpRespuesta<T>> Get<T>(string url);
