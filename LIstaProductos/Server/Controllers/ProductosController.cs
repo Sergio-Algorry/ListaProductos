@@ -89,7 +89,7 @@ namespace LIstaProductos.Server.Controllers
         }
 
         [HttpDelete("{id:int}")]
-        public async Task<ActionResult> Delete(int id)
+        public async Task<ActionResult> Delete(int id) //api/productos/2
         {
             bool existe = await context.Productos.AnyAsync(x => x.Id == id);
             if (!existe)

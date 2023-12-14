@@ -1,5 +1,7 @@
 ﻿@page "/productos"
 @inject IHttpServicio http
+@inject NavigationManager navegador
+
 
 <PageTitle>PRODUCTOS</PageTitle>
 
@@ -33,8 +35,18 @@
            <tr>
                <td>@item.Codigo</td>
                <td>@item.Nombre</td>
-                <td>@item.Precio</td>
-            </tr>
+               <td>@item.Precio</td>
+               <td>
+                    <a class="btn btn-secondary"
+                       href="editarproducto/@item.Id">
+                       Editar
+                   </a>
+                   <button class="btn btn-warning"
+                           @onclick="()=>Borrar(item.Id)">
+                           Borrar
+                   </button>
+               </td>
+           </tr>
         }
     }
 </table>
@@ -67,5 +79,25 @@
         }
 
     }
+
+    private async Task Borrar(int id)
+    {
+        var respuesta = await http.Delete($"api/productos/{id}");
+        if(respuesta.Error)
+        {
+            Mensaje = await respuesta.ObtenerError();
+        }
+        else
+        {
+            Salir();
+        }
+    }
+
+    private void Salir()
+    {
+        navegador.NavigateTo("/");
+        navegador.NavigateTo("/productos");
+    }
+
 
 }

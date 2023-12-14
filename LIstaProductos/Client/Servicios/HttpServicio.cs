@@ -45,6 +45,12 @@ namespace LIstaProductos.Client.Servicios
 
         }
 
+        public async Task<HttpRespuesta<object>> Delete(string url)
+        {
+            var respuesta = await http.DeleteAsync(url);
+            return new HttpRespuesta<object>(null, !respuesta.IsSuccessStatusCode, respuesta);
+        }
+
         public async Task<T> DesSerializador<T>(HttpResponseMessage response)
         {
             var respuestaStr = await response.Content.ReadAsStringAsync();

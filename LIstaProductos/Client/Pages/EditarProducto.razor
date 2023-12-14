@@ -1,0 +1,85 @@
+﻿@page "/editarproducto/{productoId:int}"
+@using LIstaProductos.Shared.DTO;
+@inject IHttpServicio http
+@inject NavigationManager navegador
+
+<h3>Editar Producto</h3>
+<EditForm Model="prod" OnValidSubmit="Aceptar">
+    <DataAnnotationsValidator />
+    <div class="form-group">
+        <label>Código</label>
+        <div>
+            <InputText class="form-control" @bind-Value="@prod.Codigo" />
+            <ValidationMessage For="@(() => prod.Codigo)" />
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        <label>Nombre</label>
+        <div>
+            <InputText class="form-control" @bind-Value="@prod.Nombre" />
+            <ValidationMessage For="@(() => prod.Nombre)" />
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        <label>Precio</label>
+        <div>
+            <InputNumber class="form-control" @bind-Value="@prod.Precio" />
+            <ValidationMessage For="@(() => prod.Precio)" />
+        </div>
+    </div>
+    <br />
+    <button class="btn btn-primary" type="submit">Aceptar</button>
+    <button class="btn btn-secondary" @onclick=@(()=>Limpiar())>Limpiar</button>
+    <button class="btn btn-secondary" @onclick=@(()=>Salir())>Salir</button>
+    <br />
+    <br />
+    <h5>@mensaje</h5>
+</EditForm>
+
+@code {
+    [Parameter] public int productoId { get; set; }
+    ListaProductos.BD.Data.Entity.Producto prod = new ListaProductos.BD.Data.Entity.Producto();
+    string mensaje = "";
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        await Mostrar();
+    }
+
+    private async Task Mostrar()
+    {
+        var respuesta = await http.Get<ListaProductos.BD.Data.Entity.Producto>($"api/productos/{productoId}");
+
+        if(respuesta.Error)
+        {
+            mensaje = await respuesta.ObtenerError();
+        }
+        else
+        {
+            prod = respuesta.Respuesta;
+        }
+    }
+
+    private async void Aceptar()
+    {
+       var respuesta = await http.
+    }
+
+    private void Limpiar()
+    {
+        prod.Codigo = "";
+        prod.Nombre = "";
+        prod.Precio = 0;
+        mensaje = " ";
+    }
+
+    private void Salir()
+    {
+        navegador.NavigateTo("/productos");
+    }
+
+}
