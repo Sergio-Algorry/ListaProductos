@@ -40,34 +40,42 @@
 
 @code {
     [Parameter] public int productoId { get; set; }
-    ListaProductos.BD.Data.Entity.Producto prod = new ListaProductos.BD.Data.Entity.Producto();
+    ProductoDTO prod = new();
     string mensaje = "";
 
 
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-        await Mostrar();
+        // await Mostrar();
     }
 
-    private async Task Mostrar()
-    {
-        var respuesta = await http.Get<ListaProductos.BD.Data.Entity.Producto>($"api/productos/{productoId}");
+    // private async Task Mostrar()
+    // {
+    //     var respuesta = await http.Get<ListaProductos.BD.Data.Entity.Producto>($"api/productos/{productoId}");
 
-        if(respuesta.Error)
-        {
-            mensaje = await respuesta.ObtenerError();
-        }
-        else
-        {
-            prod = respuesta.Respuesta;
-        }
-    }
+    //     if(respuesta.Error)
+    //     {
+    //         mensaje = await respuesta.ObtenerError();
+    //     }
+    //     else
+    //     {
+    //         prod = respuesta.Respuesta;
+    //     }
+    // }
 
     private async void Aceptar()
     {
-       var respuesta = await http.
+       // var respuesta = await http.
     }
+
+    // private void Limpiar()
+    // {
+    //     prod.Codigo = "";
+    //     prod.Nombre = "";
+    //     prod.Precio = 0;
+    //     mensaje = " ";
+    // }
 
     private void Limpiar()
     {
@@ -83,3 +91,7 @@
     }
 
 }
+                   <a class="btn btn-warning"
+                       href="/editarproducto/@item.Id">
+                       Editar
+                   </a>
